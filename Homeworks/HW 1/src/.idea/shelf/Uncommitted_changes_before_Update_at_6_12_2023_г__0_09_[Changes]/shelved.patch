@@ -1,0 +1,228 @@
+Index: ../../../../DSA/Homeworks/HW 8/Birthday/solution.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n// Created by PC-Admin on 23.11.2023 г..\r\n//\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../../../DSA/Homeworks/HW 8/Birthday/solution.cpp b/../../../../DSA/Homeworks/HW 8/Birthday/solution.cpp
+--- a/../../../../DSA/Homeworks/HW 8/Birthday/solution.cpp	(revision 8b81b74627953f36ffa14b524d8fbd9cf94a7938)
++++ b/../../../../DSA/Homeworks/HW 8/Birthday/solution.cpp	(date 1700780829881)
+@@ -1,3 +1,80 @@
+-//
+-// Created by PC-Admin on 23.11.2023 г..
+-//
++#include <vector>
++#include <iostream>
++#include <algorithm>
++#include <queue>
++
++struct Friend {
++    int start = 0;
++    int end = 0;
++
++    Friend() = default;
++
++    Friend(int start, int end) : start(start), end(end) {}
++
++    bool operator<(const Friend& other) const {
++        return start < other.start;
++    }
++};
++
++struct Chair {
++    int time = 0;
++    int number = 0;
++
++    Chair() = default;
++
++    Chair(int time, int number) : time(time), number(number) {}
++
++    bool operator<(const Chair& other) const {
++        return time > other.time;
++    }
++};
++
++int chairPlace(std::vector<Friend>& friends, int k) {
++
++    std::priority_queue<int, std::vector<int>, std::greater<>> freeChairs;
++    std::priority_queue<Chair> timesToFree;
++    int size = 0;
++
++    for(int i = 0; i < k; i++) {
++        while (!timesToFree.empty() && timesToFree.top().time <= friends[i].start) {
++            freeChairs.push(timesToFree.top().number);
++            timesToFree.pop();
++        }
++        if(freeChairs.empty()) {
++            timesToFree.push({friends[i].end, size});
++            size++;
++        } else {
++            timesToFree.push({friends[i].end, freeChairs.top()});
++            freeChairs.pop();
++        }
++    }
++    if(freeChairs.empty()) {
++        return timesToFree.size();
++    }
++    return freeChairs.top();
++
++}
++
++int main() {
++    int n;
++    std::cin >> n;
++    std::vector<Friend> friends(n);
++    for(int i = 0; i < n; i++) {
++        std::cin >> friends[i].start >> friends[i].end;
++    }
++    int k;
++    std::cin >> k;
++    k = friends[k].start;
++    std::sort(friends.begin(), friends.end());
++
++    for(int i = 0; i < n; i++) {
++        if(friends[i].start == k) {
++            k = i;
++            break;
++        }
++    }
++
++    std::cout << chairPlace(friends, k) << std::endl;
++
++    return 0;
++}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_X\" default=\"true\" project-jdk-name=\"corretto-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 8b81b74627953f36ffa14b524d8fbd9cf94a7938)
++++ b/.idea/misc.xml	(date 1701204063223)
+@@ -1,5 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="corretto-21" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="corretto-21" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: ../../../../DSA/Homeworks/HW 6/Painting Trees/cmake-build-debug/Testing/Temporary/LastTest.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Start testing: Nov 11 17:45 FLE Standard Time\r\n----------------------------------------------------------\r\nEnd testing: Nov 11 17:45 FLE Standard Time\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../../../DSA/Homeworks/HW 6/Painting Trees/cmake-build-debug/Testing/Temporary/LastTest.log b/../../../../DSA/Homeworks/HW 6/Painting Trees/cmake-build-debug/Testing/Temporary/LastTest.log
+--- a/../../../../DSA/Homeworks/HW 6/Painting Trees/cmake-build-debug/Testing/Temporary/LastTest.log	(revision 8b81b74627953f36ffa14b524d8fbd9cf94a7938)
++++ b/../../../../DSA/Homeworks/HW 6/Painting Trees/cmake-build-debug/Testing/Temporary/LastTest.log	(date 1700767727848)
+@@ -1,3 +1,3 @@
+-Start testing: Nov 11 17:45 FLE Standard Time
++Start testing: Nov 23 21:28 FLE Standard Time
+ ----------------------------------------------------------
+-End testing: Nov 11 17:45 FLE Standard Time
++End testing: Nov 23 21:28 FLE Standard Time
+Index: ../../../../DSA/Homeworks/HW 9/Grandmas/solution.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../../../DSA/Homeworks/HW 9/Grandmas/solution.cpp b/../../../../DSA/Homeworks/HW 9/Grandmas/solution.cpp
+new file mode 100644
+--- /dev/null	(date 1701468096749)
++++ b/../../../../DSA/Homeworks/HW 9/Grandmas/solution.cpp	(date 1701468096749)
+@@ -0,0 +1,13 @@
++#include <cmath>
++#include <cstdio>
++#include <vector>
++#include <iostream>
++#include <algorithm>
++
++
++int main() {
++
++
++
++    return 0;
++}
+Index: ../../../../DSA/Homeworks/HW 8/Bus/solution.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n// Created by PC-Admin on 23.11.2023 г..\r\n//\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../../../../DSA/Homeworks/HW 8/Bus/solution.cpp b/../../../../DSA/Homeworks/HW 8/Bus/solution.cpp
+--- a/../../../../DSA/Homeworks/HW 8/Bus/solution.cpp	(revision 8b81b74627953f36ffa14b524d8fbd9cf94a7938)
++++ b/../../../../DSA/Homeworks/HW 8/Bus/solution.cpp	(date 1700775195416)
+@@ -1,3 +1,61 @@
+-//
+-// Created by PC-Admin on 23.11.2023 г..
+-//
++#include <cmath>
++#include <cstdio>
++#include <vector>
++#include <iostream>
++#include <algorithm>
++#include <queue>
++
++struct Group {
++    int size = 0;
++    int start = 0;
++    int end = 0;
++
++    Group() = default;
++
++    Group(int size, int start, int end) : size(size), end(end), start(start) {}
++
++    bool operator<(const Group& other) const {
++        return start < other.start;
++    }
++};
++
++bool canBusFit(std::vector<Group>& groups, int busSize) {
++
++    auto comp = [](Group a, Group b) { return a.end > b.end; };
++
++    std::priority_queue<Group, std::vector<Group>, decltype(comp)> bus(comp);
++
++    int currSum = 0;
++    for(auto & group : groups) {
++        while(!bus.empty() && group.start > bus.top().end) {
++            currSum -= bus.top().size;
++            bus.pop();
++        }
++        if(currSum + group.size <= busSize) {
++            bus.emplace(group);
++            currSum += group.size;
++        }
++        else {
++            return false;
++        }
++    }
++    return true;
++}
++
++int main() {
++
++    int n;
++    std::cin >> n;
++    for(int i = 0; i < n; i++) {
++        int m, k;
++        std::cin >> m >> k;
++        std::vector<Group> groups(m);
++        for(int j = 0; j < m; j++) {
++            std::cin >> groups[j].size >> groups[j].start >> groups[j].end;
++        }
++
++        std::cout << canBusFit(groups, k) << std::endl;
++    }
++
++    return 0;
++}
+\ No newline at end of file
